@@ -1,0 +1,24 @@
+name: Daily Update by 24f3004478@ds.study.iitm.ac.in
+
+on:
+  schedule:
+    - cron: '30 3 * * *'  # Daily at 3:30 AM UTC
+  workflow_dispatch:  # Lets you test manually
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create daily log by 24f3004478@ds.study.iitm.ac.in
+        run: |
+          echo "Daily update on $(date)" >> status.log
+          git config user.name "Daily Bot"
+          git config user.email "24f3004478@ds.study.iitm.ac.in"
+          git add status.log
+          git commit -m "Daily automated update: $(date)"
+          git push
